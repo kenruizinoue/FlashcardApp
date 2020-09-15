@@ -8,7 +8,7 @@ class DataRepository(private val questionCardDao: QuestionCardDao) {
         questionCardDao.insertCard(questionCard)
     }
 
-    suspend fun getCards(): LiveData<List<QuestionCard>> {
+    fun getCards(): LiveData<List<QuestionCard>> {
         return questionCardDao.getCards()
     }
 
