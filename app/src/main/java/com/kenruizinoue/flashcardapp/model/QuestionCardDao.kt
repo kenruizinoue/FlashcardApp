@@ -11,5 +11,5 @@ interface QuestionCardDao {
     suspend fun insertCard(card: QuestionCard)
 
     @Query("SELECT * FROM QuestionCard")
-    suspend fun getCards(): LiveData<List<QuestionCard>>
+    fun getCards(): LiveData<List<QuestionCard>>
 }

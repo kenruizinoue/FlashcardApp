@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/questionListDest">
+
+    <fragment
+        android:id="@+id/questionListDest"
+        android:name="com.kenruizinoue.flashcardapp.view.QuestionListFragment"
+        android:label="Question List"
+        tools:layout="@layout/fragment_question_list">
+    </fragment>
+
+    <fragment
+        android:id="@+id/addQuestionDest"
+        android:name="com.kenruizinoue.flashcardapp.view.AddQuestionFragment"
+        android:label="Add Question"
+        tools:layout="@layout/fragment_add_question">
+    </fragment>
+
+</navigation>

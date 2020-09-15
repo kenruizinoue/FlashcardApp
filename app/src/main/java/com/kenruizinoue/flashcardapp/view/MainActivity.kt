@@ -1,7 +1,8 @@
-package com.kenruizinoue.flashcardapp
+package com.kenruizinoue.flashcardapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.kenruizinoue.flashcardapp.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
