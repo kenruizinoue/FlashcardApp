@@ -8,6 +8,7 @@ import com.kenruizinoue.flashcardapp.model.QuestionCardDatabase
 import kotlinx.coroutines.launch
 
 class AddQuestionViewModel(application: Application): AndroidViewModel(application) {
+
     val question = MutableLiveData<String>()
     val answer = MutableLiveData<String>()
 

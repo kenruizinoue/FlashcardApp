@@ -6,14 +6,14 @@
 
     <fragment
         android:id="@+id/questionListDest"
-        android:name="com.kenruizinoue.flashcardapp.view.QuestionListFragment"
+        android:name="com.kenruizinoue.flashcardapp.view.fragment.QuestionListFragment"
         android:label="Question List"
         tools:layout="@layout/fragment_question_list">
     </fragment>
 
     <fragment
         android:id="@+id/addQuestionDest"
-        android:name="com.kenruizinoue.flashcardapp.view.AddQuestionFragment"
+        android:name="com.kenruizinoue.flashcardapp.view.fragment.AddQuestionFragment"
         android:label="Add Question"
         tools:layout="@layout/fragment_add_question">
     </fragment>

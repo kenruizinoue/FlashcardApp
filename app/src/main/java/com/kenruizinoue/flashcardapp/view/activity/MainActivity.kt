@@ -1,4 +1,4 @@
-package com.kenruizinoue.flashcardapp.view
+package com.kenruizinoue.flashcardapp.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
