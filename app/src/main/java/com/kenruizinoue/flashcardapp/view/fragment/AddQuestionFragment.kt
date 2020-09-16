@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.kenruizinoue.flashcardapp.R
 import com.kenruizinoue.flashcardapp.viewModel.AddQuestionViewModel
-
 
 class AddQuestionFragment : Fragment() {
 
@@ -27,10 +29,20 @@ class AddQuestionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val saveButton = view.findViewById<Button>(R.id.saveQuestionButton)
+        val questionEditText = view.findViewById<EditText>(R.id.questionEditText)
+        val answerEditText = view.findViewById<EditText>(R.id.answerEditText)
+
         saveButton.setOnClickListener {
-            addQuestionViewModel.startInsert()
-            findNavController().navigate(R.id.questionListDest, null)
+            val dataAdded = addQuestionViewModel.startInsert(
+                questionEditText.text.toString(),
+                answerEditText.text.toString(),
+                view,
+                resources
+            )
+
+            if (dataAdded) findNavController().navigate(R.id.questionListDest, null)
         }
+
     }
 
 }
