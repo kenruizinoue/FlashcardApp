@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.kenruizinoue.flashcardapp.R
 import com.kenruizinoue.flashcardapp.viewModel.AddQuestionViewModel
 

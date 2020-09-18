@@ -8,14 +8,18 @@
         android:id="@+id/questionListDest"
         android:name="com.kenruizinoue.flashcardapp.view.fragment.QuestionListFragment"
         android:label="Question List"
-        tools:layout="@layout/fragment_question_list">
-    </fragment>
+        tools:layout="@layout/fragment_question_list" />
 
     <fragment
         android:id="@+id/addQuestionDest"
         android:name="com.kenruizinoue.flashcardapp.view.fragment.AddQuestionFragment"
         android:label="Add Question"
-        tools:layout="@layout/fragment_add_question">
-    </fragment>
+        tools:layout="@layout/fragment_add_question" />
+
+    <fragment
+        android:id="@+id/practiceDest"
+        android:name="com.kenruizinoue.flashcardapp.view.fragment.PracticeFragment"
+        android:label="Practice"
+        tools:layout="@layout/fragment_practice" />
 
 </navigation>
