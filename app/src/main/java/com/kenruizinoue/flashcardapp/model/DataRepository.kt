@@ -12,4 +12,8 @@ class DataRepository(private val questionCardDao: QuestionCardDao) {
         return questionCardDao.getCards()
     }
 
+    suspend fun getCardList(): List<QuestionCard> {
+        return questionCardDao.getCardList()
+    }
+
 }

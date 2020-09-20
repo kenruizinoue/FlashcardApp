@@ -12,4 +12,7 @@ interface QuestionCardDao {
 
     @Query("SELECT * FROM QuestionCard")
     fun getCards(): LiveData<List<QuestionCard>>
+
+    @Query("SELECT * FROM QuestionCard")
+    suspend fun getCardList(): List<QuestionCard>
 }
