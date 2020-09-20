@@ -8,7 +8,11 @@
         android:id="@+id/questionListDest"
         android:name="com.kenruizinoue.flashcardapp.view.fragment.QuestionListFragment"
         android:label="Question List"
-        tools:layout="@layout/fragment_question_list" />
+        tools:layout="@layout/fragment_question_list" >
+        <action
+            android:id="@+id/action_questionListDest_to_questionDetailFragment"
+            app:destination="@id/questionDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/addQuestionDest"
@@ -21,5 +25,15 @@
         android:name="com.kenruizinoue.flashcardapp.view.fragment.PracticeFragment"
         android:label="Practice"
         tools:layout="@layout/fragment_practice" />
+
+    <fragment
+        android:id="@+id/questionDetailFragment"
+        android:name="com.kenruizinoue.flashcardapp.view.fragment.QuestionDetailFragment"
+        android:label="Question Detail"
+        tools:layout="@layout/fragment_question_detail" >
+        <argument
+            android:name="questionId"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>
