@@ -33,9 +33,15 @@ class QuestionListFragment : Fragment() {
         val addFab = view.findViewById<FloatingActionButton>(R.id.addFab)
         val recyclerView = view.findViewById<RecyclerView>(R.id.questionRecyclerView)
 
-        cardAdapter = CardAdapter(arrayListOf())
+        cardAdapter = CardAdapter(arrayListOf(), object : ItemClickListener {
+            override fun onItemClicked(id: Int) {
+                navigateToDetail(id)
+            }
+        })
+
         recyclerView.apply {
             adapter = cardAdapter
+
         }
 
         addFab.setOnClickListener {
@@ -52,4 +58,8 @@ class QuestionListFragment : Fragment() {
         val action = QuestionListFragmentDirections.actionQuestionListDestToQuestionDetailFragment(questionId)
         findNavController().navigate(action)
     }
+}
+
+interface ItemClickListener {
+    fun onItemClicked(questionId: Int)
 }
