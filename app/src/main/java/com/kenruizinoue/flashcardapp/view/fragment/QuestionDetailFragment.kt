@@ -2,10 +2,8 @@ package com.kenruizinoue.flashcardapp.view.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -20,6 +18,7 @@ class QuestionDetailFragment : Fragment() {
 
     private var questionId = -1
     private lateinit var questionCardViewModel: QuestionDetailViewModel
+    private lateinit var app: Context
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +26,26 @@ class QuestionDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_question_detail, container, false)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.question_detail_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if (id == R.id.action_delete) {
+            questionCardViewModel.startDelete(questionId)
+            showToast(app, R.string.question_deleted_message)
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -40,7 +59,7 @@ class QuestionDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // manual dependency injection
-        val app = requireNotNull(this.activity).application
+        app = requireNotNull(this.activity).application
         val questionDao = QuestionCardDatabase.getQuestionCardDB(app).questionCardDao()
         val baseViewModel = BaseViewModelFactory { QuestionDetailViewModel(questionDao) }
         questionCardViewModel = ViewModelProvider(this, baseViewModel)
@@ -55,14 +74,15 @@ class QuestionDetailFragment : Fragment() {
             if (showNormalMessage) {
                 showToast(app, R.string.card_updated_message)
                 navigateToList()
-            }
-            else showToast(app, R.string.empty_message)
+            } else showToast(app, R.string.empty_message)
         }
     }
 
-    private fun drawUI(card: QuestionCard) {
-        questionEditText.setText(card.question)
-        answerEditText.setText(card.answer)
+    private fun drawUI(card: QuestionCard?) {
+        if (card != null) {
+            questionEditText.setText(card.question)
+            answerEditText.setText(card.answer)
+        } else navigateToList()
     }
 
     private fun showToast(context: Context, message: Int) {
@@ -70,7 +90,8 @@ class QuestionDetailFragment : Fragment() {
     }
 
     private fun navigateToList() {
-        val action = QuestionDetailFragmentDirections.actionQuestionDetailFragmentToQuestionListDest()
+        val action =
+            QuestionDetailFragmentDirections.actionQuestionDetailFragmentToQuestionListDest()
         findNavController().navigate(action)
     }
 

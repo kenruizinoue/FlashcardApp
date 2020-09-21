@@ -18,4 +18,8 @@ class QuestionDetailViewModel(private val questionCardDao: QuestionCardDao) : Vi
         }
         return true
     }
+
+    fun startDelete(id: Int) {
+        viewModelScope.launch { questionCardDao.deleteById(id) }
+    }
 }
