@@ -34,6 +34,9 @@
         <argument
             android:name="questionId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_questionDetailFragment_to_questionListDest"
+            app:destination="@id/questionListDest" />
     </fragment>
 
 </navigation>

@@ -6,6 +6,7 @@
     <string name="empty_message">Fields can\'t be empty</string>
     <string name="questions">Questions</string>
     <string name="practice">Practice</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="update">Update</string>
+    <string name="card_updated_message">Question Card updated!</string>
+
 </resources>

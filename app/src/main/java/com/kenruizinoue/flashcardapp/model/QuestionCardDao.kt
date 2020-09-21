@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface QuestionCardDao {
@@ -18,4 +19,7 @@ interface QuestionCardDao {
 
     @Query("SELECT * FROM QuestionCard WHERE cardId=:id")
     fun getCardById(id: Int): LiveData<QuestionCard>
+
+    @Update
+    suspend fun updateQuestionCard(questionCard: QuestionCard)
 }

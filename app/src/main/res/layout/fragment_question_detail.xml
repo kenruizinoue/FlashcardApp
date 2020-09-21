@@ -7,21 +7,29 @@
     tools:context=".view.fragment.QuestionDetailFragment">
 
     <EditText
-        android:id="@+id/answerEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:layout_margin="16dp"
-        android:hint="@string/answer"
-        android:importantForAutofill="no" />
-
-    <EditText
         android:id="@+id/questionEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
         android:layout_marginHorizontal="16dp"
         android:hint="@string/question"
-        android:importantForAutofill="no" />
+        android:importantForAutofill="no"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/answerEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="@string/answer"
+        android:importantForAutofill="no"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/updateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="@string/update" />
 
 </LinearLayout>

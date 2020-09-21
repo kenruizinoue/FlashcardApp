@@ -1,23 +1,25 @@
 package com.kenruizinoue.flashcardapp.view.fragment
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.kenruizinoue.flashcardapp.R
 import com.kenruizinoue.flashcardapp.model.QuestionCard
 import com.kenruizinoue.flashcardapp.model.QuestionCardDatabase
 import com.kenruizinoue.flashcardapp.viewModel.BaseViewModelFactory
 import com.kenruizinoue.flashcardapp.viewModel.QuestionDetailViewModel
+import kotlinx.android.synthetic.main.fragment_question_detail.*
 
 class QuestionDetailFragment : Fragment() {
 
+    private var questionId = -1
     private lateinit var questionCardViewModel: QuestionDetailViewModel
-    private lateinit var questionEditText: EditText
-    private lateinit var answerEditText: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,7 +31,7 @@ class QuestionDetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val questionId = arguments?.let { QuestionDetailFragmentArgs.fromBundle(it).questionId }!!
+        questionId = arguments?.let { QuestionDetailFragmentArgs.fromBundle(it).questionId }!!
         questionCardViewModel
             .getQuestionById(questionId).observe(viewLifecycleOwner, { drawUI(it) })
     }
@@ -37,20 +39,39 @@ class QuestionDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        questionEditText = view.findViewById(R.id.questionEditText)
-        answerEditText = view.findViewById(R.id.answerEditText)
-
         // manual dependency injection
-        val application = requireNotNull(this.activity).application
-        val questionDao = QuestionCardDatabase.getQuestionCardDB(application).questionCardDao()
+        val app = requireNotNull(this.activity).application
+        val questionDao = QuestionCardDatabase.getQuestionCardDB(app).questionCardDao()
         val baseViewModel = BaseViewModelFactory { QuestionDetailViewModel(questionDao) }
         questionCardViewModel = ViewModelProvider(this, baseViewModel)
             .get(QuestionDetailViewModel::class.java)
+
+        updateButton.setOnClickListener {
+            val showNormalMessage = questionCardViewModel.startUpdate(
+                questionId,
+                questionEditText.text.toString(),
+                answerEditText.text.toString()
+            )
+            if (showNormalMessage) {
+                showToast(app, R.string.card_updated_message)
+                navigateToList()
+            }
+            else showToast(app, R.string.empty_message)
+        }
     }
 
     private fun drawUI(card: QuestionCard) {
         questionEditText.setText(card.question)
         answerEditText.setText(card.answer)
+    }
+
+    private fun showToast(context: Context, message: Int) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun navigateToList() {
+        val action = QuestionDetailFragmentDirections.actionQuestionDetailFragmentToQuestionListDest()
+        findNavController().navigate(action)
     }
 
 }

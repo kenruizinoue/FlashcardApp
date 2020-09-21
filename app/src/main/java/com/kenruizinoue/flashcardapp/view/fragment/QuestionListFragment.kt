@@ -34,8 +34,8 @@ class QuestionListFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.questionRecyclerView)
 
         cardAdapter = CardAdapter(arrayListOf(), object : ItemClickListener {
-            override fun onItemClicked(id: Int) {
-                navigateToDetail(id)
+            override fun onItemClicked(questionId: Int) {
+                navigateToDetail(questionId)
             }
         })
 
