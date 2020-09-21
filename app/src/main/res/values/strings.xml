@@ -10,5 +10,8 @@
     <string name="card_updated_message">Question Card updated!</string>
     <string name="question_deleted_message">Question Card deleted</string>
     <string name="delete">Delete</string>
-
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="delete_question_card_title">Delete Question Card</string>
+    <string name="deletion_confirm_message">Are you sure to delete this Question Card?</string>
 </resources>

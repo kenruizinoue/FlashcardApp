@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.kenruizinoue.flashcardapp.R
@@ -41,8 +42,20 @@ class QuestionDetailFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.action_delete) {
-            questionCardViewModel.startDelete(questionId)
-            showToast(app, R.string.question_deleted_message)
+            val builder = AlertDialog.Builder(activity as Context)
+
+            builder.setTitle(getString(R.string.delete_question_card_title))
+            builder.setMessage(getString(R.string.deletion_confirm_message))
+            builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                questionCardViewModel.startDelete(questionId)
+                showToast(app, R.string.question_deleted_message)
+            }
+            builder.setNegativeButton(getString(R.string.no)) { _, _ -> }
+
+            val alertDialog = builder.create()
+
+            alertDialog.setCancelable(false)
+            alertDialog.show()
         }
 
         return super.onOptionsItemSelected(item)
