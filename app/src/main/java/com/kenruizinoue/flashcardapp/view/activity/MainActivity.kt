@@ -8,6 +8,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.kenruizinoue.flashcardapp.R
+import com.kenruizinoue.flashcardapp.utils.hideKeyboard
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     // enable back button functionality
     override fun onSupportNavigateUp(): Boolean {
+        hideKeyboard()
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 

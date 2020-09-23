@@ -10,6 +10,7 @@ import android.widget.EditText
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.kenruizinoue.flashcardapp.R
+import com.kenruizinoue.flashcardapp.utils.hideKeyboard
 import com.kenruizinoue.flashcardapp.viewModel.AddQuestionViewModel
 
 class AddQuestionFragment : Fragment() {
@@ -37,9 +38,11 @@ class AddQuestionFragment : Fragment() {
                 resources
             )
 
-            if (dataAdded) findNavController().navigate(R.id.questionListDest, null)
+            if (dataAdded) {
+                findNavController().navigate(R.id.questionListDest, null)
+                hideKeyboard()
+            }
         }
-
     }
 
 }

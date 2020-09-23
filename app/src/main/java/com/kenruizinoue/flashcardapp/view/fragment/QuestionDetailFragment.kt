@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.kenruizinoue.flashcardapp.R
 import com.kenruizinoue.flashcardapp.model.QuestionCard
 import com.kenruizinoue.flashcardapp.model.QuestionCardDatabase
+import com.kenruizinoue.flashcardapp.utils.hideKeyboard
 import com.kenruizinoue.flashcardapp.viewModel.BaseViewModelFactory
 import com.kenruizinoue.flashcardapp.viewModel.QuestionDetailViewModel
 import kotlinx.android.synthetic.main.fragment_question_detail.*
@@ -86,6 +87,7 @@ class QuestionDetailFragment : Fragment() {
             )
             if (showNormalMessage) {
                 showToast(app, R.string.card_updated_message)
+                hideKeyboard()
                 navigateToList()
             } else showToast(app, R.string.empty_message)
         }
