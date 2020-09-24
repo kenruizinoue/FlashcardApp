@@ -2,7 +2,9 @@ package com.kenruizinoue.flashcardapp.model
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import javax.inject.Singleton
 
+@Singleton
 @Dao
 interface QuestionCardDao {
     @Insert

@@ -9,18 +9,27 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.kenruizinoue.flashcardapp.R
+import com.kenruizinoue.flashcardapp.di.MyApplication
 import com.kenruizinoue.flashcardapp.model.QuestionCard
-import com.kenruizinoue.flashcardapp.model.QuestionCardDatabase
+import com.kenruizinoue.flashcardapp.model.QuestionCardDao
 import com.kenruizinoue.flashcardapp.utils.hideKeyboard
 import com.kenruizinoue.flashcardapp.viewModel.BaseViewModelFactory
 import com.kenruizinoue.flashcardapp.viewModel.QuestionDetailViewModel
 import kotlinx.android.synthetic.main.fragment_question_detail.*
+import javax.inject.Inject
 
 class QuestionDetailFragment : Fragment() {
 
     private var questionId = -1
     private lateinit var questionCardViewModel: QuestionDetailViewModel
     private lateinit var app: Context
+    @Inject
+    lateinit var questionCardDao: QuestionCardDao
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as MyApplication).appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,10 +81,8 @@ class QuestionDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // manual dependency injection
         app = requireNotNull(this.activity).application
-        val questionDao = QuestionCardDatabase.getQuestionCardDB(app).questionCardDao()
-        val baseViewModel = BaseViewModelFactory { QuestionDetailViewModel(questionDao) }
+        val baseViewModel = BaseViewModelFactory { QuestionDetailViewModel(questionCardDao) }
         questionCardViewModel = ViewModelProvider(this, baseViewModel)
             .get(QuestionDetailViewModel::class.java)
 
