@@ -2,6 +2,7 @@ package com.kenruizinoue.flashcardapp.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.kenruizinoue.flashcardapp.viewModel.AddQuestionViewModel
 import com.kenruizinoue.flashcardapp.viewModel.QuestionDetailViewModel
 import com.kenruizinoue.flashcardapp.viewModel.factory.ViewModelFactory
 import com.kenruizinoue.flashcardapp.viewModel.factory.ViewModelKey
@@ -20,5 +21,8 @@ abstract class ViewModelModule {
     @ViewModelKey(QuestionDetailViewModel::class)
     internal abstract fun questionDetailViewModel(viewModel: QuestionDetailViewModel): ViewModel
 
-    //Add more ViewModels here
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddQuestionViewModel::class)
+    internal abstract fun addQuestionViewModel(viewModel: AddQuestionViewModel): ViewModel
 }

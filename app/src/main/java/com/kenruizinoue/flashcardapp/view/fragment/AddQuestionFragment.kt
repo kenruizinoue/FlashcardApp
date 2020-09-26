@@ -1,21 +1,30 @@
 package com.kenruizinoue.flashcardapp.view.fragment
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.kenruizinoue.flashcardapp.R
+import com.kenruizinoue.flashcardapp.di.MyApplication
 import com.kenruizinoue.flashcardapp.utils.hideKeyboard
 import com.kenruizinoue.flashcardapp.viewModel.AddQuestionViewModel
+import kotlinx.android.synthetic.main.fragment_add_question.*
+import javax.inject.Inject
 
 class AddQuestionFragment : Fragment() {
 
-    private val addQuestionViewModel: AddQuestionViewModel by activityViewModels()
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private lateinit var addQuestionViewModel: AddQuestionViewModel
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as MyApplication).appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,11 +35,11 @@ class AddQuestionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val saveButton = view.findViewById<Button>(R.id.saveQuestionButton)
-        val questionEditText = view.findViewById<EditText>(R.id.questionEditText)
-        val answerEditText = view.findViewById<EditText>(R.id.answerEditText)
 
-        saveButton.setOnClickListener {
+        addQuestionViewModel = ViewModelProvider(this, viewModelFactory)
+            .get(AddQuestionViewModel::class.java)
+
+        saveQuestionButton.setOnClickListener {
             val dataAdded = addQuestionViewModel.startInsert(
                 questionEditText.text.toString(),
                 answerEditText.text.toString(),

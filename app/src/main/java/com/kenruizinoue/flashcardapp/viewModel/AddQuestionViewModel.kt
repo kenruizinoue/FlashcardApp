@@ -1,6 +1,5 @@
 package com.kenruizinoue.flashcardapp.viewModel
 
-import android.app.Application
 import android.content.res.Resources
 import android.view.View
 import androidx.lifecycle.*
@@ -8,19 +7,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.kenruizinoue.flashcardapp.R
 import com.kenruizinoue.flashcardapp.model.DataRepository
 import com.kenruizinoue.flashcardapp.model.QuestionCard
-import com.kenruizinoue.flashcardapp.model.QuestionCardDatabase
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddQuestionViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repository: DataRepository
-
-    init {
-        val questionCardDao = QuestionCardDatabase
-            .getQuestionCardDB(application)
-            .questionCardDao()
-        repository = DataRepository(questionCardDao)
-    }
+class AddQuestionViewModel @Inject constructor(private val dataRepository: DataRepository) : ViewModel(){
 
     fun startInsert(questionString: String, answerString: String, view: View, resources: Resources): Boolean {
         return if (questionString.isNotBlank() && answerString.isNotBlank()) {
@@ -33,6 +23,6 @@ class AddQuestionViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     private fun insertCard(card: QuestionCard) = viewModelScope.launch {
-        repository.insertQuestionCard(card)
+        dataRepository.insertQuestionCard(card)
     }
 }
