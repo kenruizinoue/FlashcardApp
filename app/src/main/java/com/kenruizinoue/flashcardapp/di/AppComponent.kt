@@ -1,12 +1,13 @@
 package com.kenruizinoue.flashcardapp.di
 
 import android.app.Application
-import android.content.Context
 import com.kenruizinoue.flashcardapp.view.fragment.QuestionDetailFragment
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Singleton
 
-@Component(modules = [RoomModule::class])
+@Singleton
+@Component(modules = [RoomModule::class, ViewModelModule::class])
 interface AppComponent {
 
     // Factory to create instances of the AppComponent

@@ -6,8 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.kenruizinoue.flashcardapp.model.QuestionCard
 import com.kenruizinoue.flashcardapp.model.QuestionCardDao
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class QuestionDetailViewModel(private val questionCardDao: QuestionCardDao) : ViewModel() {
+class QuestionDetailViewModel @Inject constructor(private val questionCardDao: QuestionCardDao) : ViewModel() {
 
     fun getQuestionById(id: Int): LiveData<QuestionCard> = questionCardDao.getCardById(id)
 

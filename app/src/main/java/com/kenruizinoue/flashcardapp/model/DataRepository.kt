@@ -1,8 +1,9 @@
 package com.kenruizinoue.flashcardapp.model
 
 import androidx.lifecycle.LiveData
+import javax.inject.Inject
 
-class DataRepository(private val questionCardDao: QuestionCardDao) {
+class DataRepository @Inject constructor(private val questionCardDao: QuestionCardDao) {
 
     suspend fun insertQuestionCard(questionCard: QuestionCard) {
         questionCardDao.insertCard(questionCard)

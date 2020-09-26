@@ -11,9 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.kenruizinoue.flashcardapp.R
 import com.kenruizinoue.flashcardapp.di.MyApplication
 import com.kenruizinoue.flashcardapp.model.QuestionCard
-import com.kenruizinoue.flashcardapp.model.QuestionCardDao
 import com.kenruizinoue.flashcardapp.utils.hideKeyboard
-import com.kenruizinoue.flashcardapp.viewModel.BaseViewModelFactory
 import com.kenruizinoue.flashcardapp.viewModel.QuestionDetailViewModel
 import kotlinx.android.synthetic.main.fragment_question_detail.*
 import javax.inject.Inject
@@ -21,10 +19,9 @@ import javax.inject.Inject
 class QuestionDetailFragment : Fragment() {
 
     private var questionId = -1
-    private lateinit var questionCardViewModel: QuestionDetailViewModel
-    private lateinit var app: Context
     @Inject
-    lateinit var questionCardDao: QuestionCardDao
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var questionDetailViewModel: QuestionDetailViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -57,8 +54,8 @@ class QuestionDetailFragment : Fragment() {
             builder.setTitle(getString(R.string.delete_question_card_title))
             builder.setMessage(getString(R.string.deletion_confirm_message))
             builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
-                questionCardViewModel.startDelete(questionId)
-                showToast(app, R.string.question_deleted_message)
+                questionDetailViewModel.startDelete(questionId)
+                showToast(requireNotNull(this.activity).application, R.string.question_deleted_message)
             }
             builder.setNegativeButton(getString(R.string.no)) { _, _ -> }
 
@@ -74,29 +71,27 @@ class QuestionDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         questionId = arguments?.let { QuestionDetailFragmentArgs.fromBundle(it).questionId }!!
-        questionCardViewModel
+        questionDetailViewModel
             .getQuestionById(questionId).observe(viewLifecycleOwner, { drawUI(it) })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        app = requireNotNull(this.activity).application
-        val baseViewModel = BaseViewModelFactory { QuestionDetailViewModel(questionCardDao) }
-        questionCardViewModel = ViewModelProvider(this, baseViewModel)
+        questionDetailViewModel = ViewModelProvider(this, viewModelFactory)
             .get(QuestionDetailViewModel::class.java)
 
         updateButton.setOnClickListener {
-            val showNormalMessage = questionCardViewModel.startUpdate(
+            val showNormalMessage = questionDetailViewModel.startUpdate(
                 questionId,
                 questionEditText.text.toString(),
                 answerEditText.text.toString()
             )
             if (showNormalMessage) {
-                showToast(app, R.string.card_updated_message)
+                showToast(requireNotNull(this.activity).application, R.string.card_updated_message)
                 hideKeyboard()
                 navigateToList()
-            } else showToast(app, R.string.empty_message)
+            } else showToast(requireNotNull(this.activity).application, R.string.empty_message)
         }
     }
 

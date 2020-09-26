@@ -1,12 +1,10 @@
 package com.kenruizinoue.flashcardapp.di
 
 import android.app.Application
-import android.content.Context
 import com.kenruizinoue.flashcardapp.model.QuestionCardDao
 import com.kenruizinoue.flashcardapp.model.QuestionCardDatabase
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 class RoomModule {
