@@ -1,10 +1,8 @@
 package com.kenruizinoue.flashcardapp.viewModel
 
-import android.app.Application
 import androidx.lifecycle.*
 import com.kenruizinoue.flashcardapp.model.DataRepository
 import com.kenruizinoue.flashcardapp.model.QuestionCard
-import com.kenruizinoue.flashcardapp.model.QuestionCardDatabase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

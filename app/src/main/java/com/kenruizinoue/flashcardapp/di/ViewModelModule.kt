@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.kenruizinoue.flashcardapp.viewModel.AddQuestionViewModel
 import com.kenruizinoue.flashcardapp.viewModel.PracticeViewModel
 import com.kenruizinoue.flashcardapp.viewModel.QuestionDetailViewModel
+import com.kenruizinoue.flashcardapp.viewModel.QuestionListViewModel
 import com.kenruizinoue.flashcardapp.viewModel.factory.ViewModelFactory
 import com.kenruizinoue.flashcardapp.viewModel.factory.ViewModelKey
 import dagger.Binds
@@ -31,4 +32,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(PracticeViewModel::class)
     internal abstract fun practiceViewModel(viewModel: PracticeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(QuestionListViewModel::class)
+    internal abstract fun questionListViewModel(viewModel: QuestionListViewModel): ViewModel
 }

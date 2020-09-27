@@ -1,23 +1,14 @@
 package com.kenruizinoue.flashcardapp.viewModel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import com.kenruizinoue.flashcardapp.model.DataRepository
 import com.kenruizinoue.flashcardapp.model.QuestionCard
-import com.kenruizinoue.flashcardapp.model.QuestionCardDatabase
+import javax.inject.Inject
 
-class QuestionListViewModel (application: Application): AndroidViewModel(application) {
-    private val repository: DataRepository
-
-    init {
-        val questionCardDao = QuestionCardDatabase
-            .getQuestionCardDB(application)
-            .questionCardDao()
-        repository = DataRepository(questionCardDao)
-    }
+class QuestionListViewModel @Inject constructor(private val dataRepository: DataRepository): ViewModel() {
 
     fun getUsers(): LiveData<List<QuestionCard>> {
-        return repository.getCards()
+        return dataRepository.getCards()
     }
 }
