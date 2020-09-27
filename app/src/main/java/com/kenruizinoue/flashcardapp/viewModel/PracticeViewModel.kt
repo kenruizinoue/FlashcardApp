@@ -6,24 +6,17 @@ import com.kenruizinoue.flashcardapp.model.DataRepository
 import com.kenruizinoue.flashcardapp.model.QuestionCard
 import com.kenruizinoue.flashcardapp.model.QuestionCardDatabase
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PracticeViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository: DataRepository
+class PracticeViewModel @Inject constructor(private val dataRepository: DataRepository) : ViewModel() {
     private lateinit var dataInRandomOrder: List<QuestionCard>
     private var questionPos = 0
     var isAnswerTextVisible: MutableLiveData<Boolean> = MutableLiveData(false)
     var actualQuestionCard: MutableLiveData<QuestionCard> = MutableLiveData(null)
 
-    init {
-        val questionCardDao = QuestionCardDatabase
-            .getQuestionCardDB(application)
-            .questionCardDao()
-        repository = DataRepository(questionCardDao)
-    }
-
     fun fetchQuestionCards() {
         viewModelScope.launch {
-            val data = repository.getCardList()
+            val data = dataRepository.getCardList()
             dataInRandomOrder = data.shuffled()
             if (dataInRandomOrder.isNotEmpty()) actualQuestionCard.value = dataInRandomOrder[0]
         }

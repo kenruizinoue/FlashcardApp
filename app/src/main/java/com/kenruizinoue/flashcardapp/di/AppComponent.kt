@@ -2,6 +2,7 @@ package com.kenruizinoue.flashcardapp.di
 
 import android.app.Application
 import com.kenruizinoue.flashcardapp.view.fragment.AddQuestionFragment
+import com.kenruizinoue.flashcardapp.view.fragment.PracticeFragment
 import com.kenruizinoue.flashcardapp.view.fragment.QuestionDetailFragment
 import dagger.BindsInstance
 import dagger.Component
@@ -20,4 +21,5 @@ interface AppComponent {
 
     fun inject(questionDetailFragment: QuestionDetailFragment)
     fun inject(addQuestionFragment: AddQuestionFragment)
+    fun inject(practiceFragment: PracticeFragment)
 }
